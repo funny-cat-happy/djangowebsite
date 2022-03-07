@@ -127,10 +127,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
 #personal file
 *.crt
-*.eky
+*.key
 *.pfx
 *.zip
 *.mp4
 *.jpg
+.idea
