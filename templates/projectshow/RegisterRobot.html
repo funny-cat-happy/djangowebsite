@@ -1,0 +1,32 @@
+{% extends 'projectshow/base.html' %}
+{% load static %}
+{% block title %}
+    <h1>{{ Demoname }}</h1>
+{% endblock %}
+{% block DemoIntroduce %}
+    <div id="Introduce" class="content">
+         <h3>项目介绍</h3>
+        <p>本qq机器人基于qq smart协议，采用python控制信息请求与发送。</p>
+    </div>
+{% endblock %}
+{% block  VisionChange %}
+    <div id="Update" class="content">
+        <h3>版本更新</h3>
+        <ul>
+            <li>1.0.0</li>
+            <p>机器人的第一个版本，具有功能信息登记，信息更改，登记提醒功能，本版本源代码公开，<a href="{% url 'blog:downloadrobot' 0%}">点击即可下载</a></p>
+            <li>1.2.0</li>
+            <p>此版本加入了邀请码登录，信息删除，信息查询，查询未登记人员并提醒功能，并且采用数据库存储数据，保证数据安全性</p>
+            <li>1.3.0</li>
+            <p>此版本重新调整了项目结构，主要面向开发者，使用说明见我的网站文章。若无重大错误该插件停止更新，已转向nonebot插件开发。本版本源代码公开，<a href="{% url 'blog:downloadrobot' 1%}">点击即可下载</a></p>
+            <li>2.0.0</li>
+            <p>采用了nonebot重量级框架，使得功能更加强大，暂时只实现了定时发送功能。本版本源代码公开，<a href="{% url 'blog:downloadrobot' 2%}">点击即可下载</a></p>
+        </ul>
+    </div>
+{% endblock %}
+{% block DemoDisplay %}
+    <div id="Display" class="content">
+        <h3>项目展示</h3>
+        <video src="{% static 'video/RobotDisplay.mp4' %}" controls='controls'></video>
+    </div>
+{% endblock %}

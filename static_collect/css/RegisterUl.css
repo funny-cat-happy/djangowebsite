@@ -1,0 +1,104 @@
+/*全局样式*/
+.col-md-2{
+	padding-left:3px;
+	padding-right:0;
+}
+body{
+	background-image: url('../image/YourName.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-color:rgba(200,200,200,0.6);
+}
+
+
+/*登录界面样式*/
+.login{
+    height: 200px;
+}
+.login h3{
+    text-align: center;
+}
+.img{
+	height: 26px;
+	border: 1px solid red;
+	width: 30%;
+	margin-top: 5px;
+}
+.login p{
+	display: block;
+	float: left;
+	color: red;
+}
+.captcha{
+    margin: 5px 0 5px 10px;
+}
+
+/*按钮样式*/
+#InfBtn{
+	margin-top: 5px;
+}
+#submit{
+	text-align: left;
+}
+#reset{
+	display: block;
+	float: right;
+}
+
+/*输入框样式*/
+.InfVer{
+	width: 100%;
+}
+#Verimg{
+    height: 30px;
+    width: 80px;
+    margin-top: 5px;
+}
+#Verimg image{
+    width: 100%;
+    height: 100%;
+}
+
+/*错误列表样式*/
+.errorlist{
+    margin:10px 0;
+    padding: 0;
+    color: red;
+}
+.errorlist ul{
+    padding: 0;
+}
+.errorlist li{
+    width: 100%;
+}
+
+/*手机样式*/
+@media screen and (max-width: 768px){
+	.login{
+	padding-left:15px;
+	color: orange;
+	}
+	#UserRealName{
+	width: 151px;
+	}
+	#VerCode{
+		width: 80px;
+	}
+	.img{
+	height: 26px;
+	border: 1px solid red;
+	width: 30%;
+	margin-top: 2px;
+	margin-right: 6px;
+	float: right;
+    }
+    #password2{
+    width: 151px;
+    }
+    #RealName{
+    width: 151px;
+    }
+    #VerCode{
+        width: 165px;
+    }
+}

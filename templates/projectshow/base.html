@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load static %}
+{#    Bootstrap#}
+    <link  rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+{#    主页自定义样式#}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/ProjectShow.css' %}">
+{#    添加脚本文件#}
+    <Script type="text/javascript" src="{% static 'js/ProjectShow.js' %}"></Script>
+    <title>项目展示</title>
+<body>
+<div class="container">
+    {% block title %}
+    {% endblock %}
+    <div class="row">
+        <div class="col-md-4">
+            {% block DemoIntroduce %}
+            {% endblock %}
+        </div>
+        <div class="col-md-4">
+            {% block VisionChange %}
+            {% endblock %}
+        </div>
+        <div class="col-md-4">
+            {% block DemoDisplay %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+</body>
+</html>

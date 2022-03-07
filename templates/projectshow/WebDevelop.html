@@ -1,0 +1,38 @@
+{% extends 'projectshow/base.html' %}
+{% load static %}
+{% block title %}
+    <h1>{{ Demoname }}</h1>
+{% endblock %}
+{% block DemoIntroduce %}
+    <div id="Introduce" class="content">
+         <h3>项目介绍</h3>
+         <p>这个项目就是你所看到的这个网站</p>
+    </div>
+{% endblock %}
+{% block  VisionChange %}
+    <div id="Update" class="content">
+        <h3>版本更新</h3>
+            <ul>
+                <li>1.0.0</li>
+                <p>数学建模协会官网，采用HTML+CSS+JAVESCRIPT传统开发模式，静态网页，本版本源代码公开，<a href="{% url 'blog:downloadweb' %}">点击即可下载</a></p>
+                <li>2.0.0</li>
+                <p>此版本采用了响应式布局，手机与电脑端显示不同，方便用户查看。后台采用Django管理，数据库采用MySQL，服务器采用IIS</p>
+                <li>2.1.0</li>
+                <p>此版本加入了登录系统，注册系统，博客系统，日志系统，后台管理系统，文章评论系统</p>
+                <li>2.2.0</li>
+                <p>此版本加入了防跨站攻击系统，采用了HTTPS协议防止中间人攻击，优化了手机端评论显示，增添了文章列表查询</p>
+                <li>2.2.1</li>
+                <p>修复了评论数异常的显示，修复了防跨站攻击系统</p>
+                <li>2.3.0</li>
+                <p>优化了主页显示，使用了CSS3动画，JavaScript动画。并引入了Vue框架。采用了预加载动画，优化客户端体验</p>
+                <li>2.4.0</li>
+                <p>此版本加入了聊天室功能，反爬虫功能，CSS3D功能，分页器功能，采用了redis作为缓存数据库，但是存在浏览器兼容问题，将会在以后的版本修复</p>
+            </ul>
+    </div>
+{% endblock %}
+{% block DemoDisplay %}
+    <div id="Display" class="content">
+        <h3>项目展示</h3>
+        <p>就是这个网站</p>
+    </div>
+{% endblock %}

@@ -1,0 +1,47 @@
+.container{
+    background-color: #e0e8e7;
+}
+.container h1{
+    text-align: center;
+     color: #d6c1be;
+}
+ .col-md-4 h3{
+    margin: 0;
+     padding: 0;
+}
+ .col-md-4 p{
+    margin: 0;
+     padding: 0;
+}
+
+
+ #Update{
+     background-color: #CCFF99;
+     color: #8ba0ff;
+     margin-bottom: 5px;
+     padding:10px 10px 20px 10px;
+     margin-top: 5px;
+ }
+ #Introduce{
+     background-color: #CCCCFF;
+     color: #7675cc;
+     padding:10px 10px 20px 10px;
+ }
+ #Display{
+     background-color: #fff99d;
+     color: #99CCCC;
+     padding:10px 10px 20px 10px;
+     margin-bottom: 20px;
+     margin-top: 5px;
+ }
+ #Display video{
+     width: 100%;
+     margin-top: 10px;
+ }
+
+
+ @media screen and (min-width:991px ){
+    .content{
+        height:600px;
+    }
+ }

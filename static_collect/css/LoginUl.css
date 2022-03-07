@@ -1,0 +1,49 @@
+/*全局样式*/
+
+.col-md-2{
+	padding-left:3px;
+}
+body{
+	background-image: url('../image/YourName.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-color:rgba(200,200,200,0.6);
+}
+
+
+/*登录界面样式*/
+.login{
+    height: 200px;
+}
+.login h3{
+    text-align: center;
+}
+.login p{
+	color: red;
+}
+
+/*按钮样式*/
+#InfBtn{
+	margin-top: 5px;
+}
+#submit{
+	text-align: left;
+}
+#reset{
+	display: block;
+	float: right;
+}
+
+/*输入框样式*/
+.InfVer{
+	width: 100%;
+}
+
+
+/*手机样式*/
+@media screen and (max-width: 768px){
+	.login{
+	padding-left:15px;
+	color: orange;
+	}
+}

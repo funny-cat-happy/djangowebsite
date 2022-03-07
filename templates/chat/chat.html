@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>聊天室</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        #top {
+            width: 100%;
+            height: 40px;
+            background-color: #4a30bc;
+            text-align: center;
+        }
+
+        #center {
+            width: 100%;
+            background-color: seashell;
+        }
+
+        #center ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #center li {
+            list-style: none;
+        }
+
+        .messagecontainer {
+            width: 100%;
+            height: fit-content;
+            background-color: silver;
+        }
+
+        .messageinf {
+            height: 25px;
+            width: 100%;
+            background-color: red;
+        }
+
+        .messageinf div {
+            float: left;
+            width: 20%;
+            height: 100%;
+        }
+
+        .messageinf div:nth-child(1) {
+            padding-left: 36px;
+        }
+
+        h4 {
+            margin: 0;
+        }
+
+        .message {
+            height: fit-content;
+            width: 100%;
+            background-color: aliceblue;
+            padding: 5px 0;
+            word-break: break-all;
+        }
+
+        #userinput {
+            width: 100%;
+            height: 60px;
+            text-align: center;
+        }
+
+        #userinput textarea {
+            width: 75%;
+            height: 72%;
+            float: left;
+        }
+
+        #userinput div {
+            height: 40%;
+            width: 6%;
+            float: left;
+            background-color: aquamarine;
+            margin-left: 15px;
+        }
+
+        #userinput div p {
+            margin: 0;
+        }
+@media screen and (max-width: 981px) {
+    #top{
+        height: 90px;
+    }
+    h2{
+        font-size: 60px;
+        margin: 0;
+    }
+    h4{
+        font-size: 35px;
+    }
+    .messageinf{
+        height: 53px;
+    }
+    .messageinf div{
+        width: 32%;
+    }
+    #userinput{
+        height: 115px;
+        font-size: 35px;
+    }
+    #userinput div{
+        height: 45%;
+        width: 12%;
+    }
+}
+    </style>
+
+</head>
+<body>
+<div id="top">
+    <h2>在线聊天室</h2>
+</div>
+{% verbatim %}
+<div id="center">
+    <ul>
+        <li v-for="eve in resmsg.user_inf">
+            <div class="messagecontainer">
+                <div class="messageinf">
+                    <div><h4>时间：{{eve.time}}</h4></div>
+                    <div><h4>昵称：{{eve.nickname}}</h4></div>
+                </div>
+                <div class="message">
+                    <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ eve.message }}</h4>
+                </div>
+            </div>
+        </li>
+        <div id="userinput">
+                <textarea placeholder="请输入发送的消息内容，所有的内容将会在晚上十二点清空" v-model="msg" @keyup.enter="send" maxlength="168"></textarea>
+                <div @click="send"><p>发送</p></div>
+        </div>
+    </ul>
+</div>
+{% endverbatim %}
+</body>
+<script>
+    var app = new Vue({
+            el: '#center',
+            data: {
+                websocketurl: 'wss://139.9.204.223/chat/',
+                msg:'',
+                userinf:'',
+                time: new Date(),
+                result:'',
+                resmsg:'',
+            },
+            methods: {
+                init: function () {
+                    if (typeof (WebSocket) === "undefined") {
+                        alert("您的浏览器不支持聊天室功能")
+                    } else {
+                        this.socket = new WebSocket(this.websocketurl);
+                        this.socket.onopen = this.open;
+                        this.socket.onerror = this.error;
+                        this.socket.onmessage = this.getMessage;
+                    }
+                },
+                error: function () {
+                    alert('连接错误');
+                },
+                getMessage: function (msg) {
+                    this.resmsg=JSON.parse(msg.data);
+                },
+                send: function () {
+                    this.result={
+                        'nickname': '{{ username }}',
+                        'time': this.time.getHours() + '时' + this.time.getMinutes() + '分',
+                        'message': this.msg
+                    };
+                    this.socket.send(JSON.stringify(this.result));
+                    this.msg='';
+                },
+            },
+        destroyed(){
+        // 销毁监听
+        this.socket.onclose = this.close;
+    },
+        mounted()
+        {
+            this.init();
+        }
+    });
+
+</script>
+</html>

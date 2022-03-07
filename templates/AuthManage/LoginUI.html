@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load static %}
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <!-- 主页自定义样式 -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/LoginUl.css' %}">
+    <title>用户登录</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-5 col-xs-2"></div>
+        <div class="col-md-2 col-xs-8">
+            <div class="login">
+                <h3>欢迎登录</h3>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="InfVer">
+                        <label for="UserAccount">账号</label>
+                        <input type="text" size='20' name="UserAccount" id="UserAccount">
+                    </div>
+                    <div class="InfVer">
+                        <label for="UserPassword">密码</label>
+                        <input type="password" name="UserPassword" id="UserPassword">
+                    </div>
+                    <div id='InfBtn'>
+                        <button type="submit" class="btn btn-success btn-small" id="submit">登录</button>
+                        <button type="reset" class="btn btn-warning btn-small" id='reset'>清空</button>
+                    </div>
+                    <a href="{% url 'AuthManage:Register' %}">没有账号？去注册一个</a>
+                </form>
+                <p>{{ error }}</p>
+            </div>
+        </div>
+        <div class="col-md-2 col-xs-2"></div>
+    </div>
+</div>
+</body>
+</html>

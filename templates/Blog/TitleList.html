@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load static %}
+    <!-- Bootstrap -->
+    <link  rel="stylesheet" type="text/css" href="{% static 'css/TitleList.css' %}">
+    <!-- 主页自定义样式 -->
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<title>文章列表</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="loginlist">
+                {% if user.is_authenticated %}
+                 <a href="{% url 'AuthManage:Logout' %}" class="btn btn-warning">登出</a>
+                    <p>欢迎{{ NickName }}</p>
+                 {% else %}
+                    <a href="{% url 'AuthManage:Login' %}" class="btn btn-info">登录</a>
+                    <a href="{% url 'AuthManage:Register' %}" class="btn btn-warning">注册</a>
+                 {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <div class="quickuse">
+                <h4>快捷访问</h4>
+            </div>
+            <div class="list">
+                <ul>
+                    <li><a href="{% url 'index' %}">返回主页</a></li>
+                    <li><a href="/blog/TitleList/?ArticleTypeId=0&page_index=1">全部文章</a></li>
+                    {% for eve in ArticleTypeObj %}
+                        <li><a href="/blog/TitleList/?ArticleTypeId={{ eve.id }}&page_index=1">{{ eve.type }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-10">
+        	<div class="display">
+	        	<ul>
+                    {% for eve in page %}
+	            	<li>
+	            		<div class="article">
+	            			<div class="title">
+                                <div id="titletopic">
+                                    <a href="{% url 'blog:article' eve.id %}"><h3>{{ eve.title }}</h3></a>
+                                </div>
+                                <div id="LookComment">
+                                    <h5>创建时间：{{ eve.CreateTime }}</h5>
+                                    <h5>最后修改时间:{{ eve.ChangeTime }}</h5>
+                                </div>
+                            </div>
+	            			<div class="hidden-xs">
+	            				<div class="TextPart"><p>{{ eve.context|striptags|safe|slice:'40' }}</p></div>
+	            			</div>
+	            			<div class="AuthorComment">
+	            				<div class="Author"><h4>作者：{{ eve.auth }}</h4></div>
+	            				<div class="Comment"><h5>评论数{{ eve.CommentTime }} 访问量{{ eve.LookTime }}</h5></div>
+	            			</div>
+	            		</div>
+	            	</li>
+                    {% empty %}
+                        <li>
+	            		<div class="article">
+	            			<div class="title"><a href=""><h3>暂无文章</h3></a></div>
+	            		</div>
+	            	</li>
+                    {% endfor %}
+	            </ul>	
+        	</div>
+            <div id="PageSlice">
+                {% if page.has_previous %}
+                    <div id="PreviousPage"><h5><a href="/blog/TitleList/?ArticleTypeId={{ ArticleTypeId }}&page_index={{ page_index|add:-1 }}">上一页</a></h5></div>
+                {% endif %}
+                {% if TitleObj %}
+                    <div id="PageCount"><h5>第{{page_index}}页，共{{ paginator.num_pages }}页</h5></div>
+                {% else %}
+                    <div id="PageCount"><h5>暂无页数</h5></div>
+                {% endif %}
+                {% if page.has_next %}
+                    <div id="NextPage"><h5><a href="/blog/TitleList/?ArticleTypeId={{ ArticleTypeId }}&page_index={{ page_index|add:1 }}">下一页</a></h5></div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

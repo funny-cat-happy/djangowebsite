@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>虎啸科技</title>
+    <!-- Bootstrap -->
+    {% load static %}
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- 主页自定义样式 -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+    {#    Vue文件#}
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+</head>
+<body>
+<canvas id="rain"></canvas>
+<div id="LoadingLeft"></div>
+<div id="LoadingRight"></div>
+{#预加载动画文件#}
+<script type="text/javascript" src="{% static 'js/loadmove.js'%}"></script>
+<div id="leaf"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="loginlist">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'AuthManage:Logout' %}" class="btn btn-warning">登出</a>
+                    <p>欢迎{{ NickName }}</p>
+                {% else %}
+                    <a href="{% url 'AuthManage:Login' %}" class="btn btn-info">登录</a>
+                    <a href="{% url 'AuthManage:Register' %}" class="btn btn-warning">注册</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <div class="quickuse">
+                <h4>快捷访问</h4>
+            </div>
+            <div class="list">
+                <ul>
+                    <li><a href="#" class="glyphicon glyphicon-usd NoFun" id="pay">支付宝收付款</a></li>
+                    <li  class="hidden-xs"><a href="#" class="glyphicon glyphicon-envelope NoFun">信息共享</a></li>
+                    <li><a href="#" class="glyphicon glyphicon-pencil NoFun">信息登记</a></li>
+                    <li  class="hidden-xs"><a href="#" class="glyphicon glyphicon-download-alt NoFun">文件下载</a></li>
+                    <li><a href="#" class="glyphicon glyphicon-earphone" id="ConnectWriter">联系作者</a></li>
+                    <li id="WriterInf"><a href="http://wpa.qq.com/msgrd?v=3&uin=2249075339&site=qq&menu=yes" target="_blank">点击加作者QQ2249075339</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="name">
+                <img v-bind:src="ImgSrc[Index]">
+                <div id="mask"></div>
+            </div>
+            <div class="visitbutton">
+                <ul>
+                    <li>
+                        <div id="ProjectShowContain">
+                            <button href="#" class="mainbtn" id="ProjectShowBtn"></button>
+                            <div>
+                                <h1>项目展示</h1>
+                            </div>
+                            <div id="ProjectShowUl" style="display: none">
+                                <h3>项目列表</h3>
+                                <ul>
+                                    <li><a href="{% url 'blog:RegisterRobot' %}">信息登记机器人</a></li>
+                                    <li><a href="{% url 'blog:WebDevelop' %}">Web开发</a></li>
+                                    <li><a href="{% url 'blog:GobangDevelop' %}">深度学习博弈</a></li>
+                                </ul>
+                        </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <a href="/chat/">
+                                <button class="mainbtn"></button>
+                            </a>
+                            <div>
+                                <h1>聊天室</h1>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <a href="/blog/TitleList/?ArticleTypeId=0&page_index=1">
+                                <button class="mainbtn" id="blog"></button>
+                            </a>
+                            <div>
+                                <h1>个人博客</h1>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <a href="{% url 'travel:MainTravel'%} ">
+                                <button href="#" class="mainbtn"></button>
+                            </a>
+                            <div>
+                                <h1>风景游记</h1>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{#    轮播图动画#}
+<script type="text/javascript" src="{% static 'js/photomove.js'%}"></script>
+{#树叶飘落动画文件#}
+<script type="text/javascript" src="{% static 'js/leaffall.js'%}"></script>
+{#    主页样式文件#}
+<script type="text/javascript" src="{% static 'js/index.js'%}"></script>
+</body>
+</html>

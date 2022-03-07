@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load static %}
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <!-- 主页自定义样式 -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/RegisterUl.css' %}">
+    {#    引入axios#}
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    {#    Vue文件#}
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <title>用户登录</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-5 col-xs-2"></div>
+        <div class="col-md-2 col-xs-8">
+            <div class="login">
+                <h3>欢迎注册</h3>
+                <form action="{% url 'AuthManage:Register' %}" method="post">
+                {% csrf_token %}
+                    <div class="InfVer">
+                        <label for="username">账号</label>
+                        <input type="text" size='20' name="username" id="username">
+                        {% if RegisterForm.errors %}
+                            {{ RegisterForm.errors.username }}
+                        {% endif %}
+                    </div>
+                    <div class="InfVer">
+                        <label for="password1">密码</label>
+                        <input type="password" name="password1" id="password1">
+                        {% if RegisterForm.errors %}
+                            {{ RegisterForm.errors.password1 }}
+                        {% endif %}
+                    </div>
+                    <div class="InfVer">
+                        <label for="password2">确认密码</label>
+                        <input type="password" name="password2" id="password2">
+                        {% if RegisterForm.errors %}
+                            {{ RegisterForm.errors.password2 }}
+                        {% endif %}
+                    </div>
+                    <div class="InfVer">
+                        <label for="NickName">昵称</label>
+                        <input type="text" name="NickName" id="NickName">
+                        {% if RegisterForm.errors %}
+                            {{ RegisterForm.errors.NickName }}
+                        {% endif %}
+                    </div>
+                    <div class="InfVer">
+                        <label for="RealName">真实姓名</label>
+                        <input type="text" name="RealName" id="RealName" placeholder="非吾同学可不填">
+                        {% if RegisterForm.errors %}
+                            {{ RegisterForm.errors.RealName }}
+                        {% endif %}
+                    </div>
+                    <div class="InfVer">
+                        <label for="VerCode">验证码</label>
+                        <input type="text" name="VerCode" id="VerCode">
+                        <div id="Verimg">
+                            <img :src="imgcode" alt="图片无法显示，我也不知道怎么回事" @click="ChangeCode">
+                        </div>
+                        <ul class="errorlist">
+                            {% if VercodeError %}
+                                <li>{{ VercodeError }}</li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <div id='InfBtn'>
+                        <button type="submit" class="btn btn-success btn-small" id="submit">注册</button>
+                        <button type="reset" class="btn btn-warning btn-small" id='reset'>清空</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-2 col-xs-2"></div>
+    </div>
+</div>
+<script>
+    var app = new Vue({
+        el: '#Verimg',
+        data: {
+            imgcode:'{% url 'AuthManage:GetCode' 0 %}'
+        },
+        methods: {
+            ChangeCode() {
+                var num=Math.ceil(Math.random()*10);//生成一个随机数（防止缓存）
+                this.imgcode='/AuthManage/GetCode/';
+                this.imgcode = this.imgcode+num;
+            },
+        },
+    });
+</script>
+</body>
+</html>

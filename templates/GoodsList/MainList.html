@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load static %}
+    <!-- Bootstrap -->
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- 主页自定义样式 -->
+    <link  rel="stylesheet" type="text/css" href="{% static 'css/MainList.css' %}">
+	<title>物品列表</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="loginlist">
+                {% if user.is_authenticated %}
+                 <a href="{% url 'AuthManage:Logout' %}" class="btn btn-warning">登出</a>
+                    <p>欢迎{{ NickName }}</p>
+                 {% else %}
+                    <a href="{% url 'AuthManage:Login' %}" class="btn btn-info">登录</a>
+                    <a href="{% url 'AuthManage:Register' %}" class="btn btn-warning">注册</a>
+                 {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <div class="quickuse">
+                <h4>快捷访问</h4>
+            </div>
+            <div class="list">
+                <ul>
+                    <li><a href="#" id="announce">网站声明</a></li>
+                    <li><a href="/transaction/GoodsList/?GoodsTypeId=0&page_index=1">全部物品</a></li>
+                    {% for eve in GoodsTypeObj %}
+                        <li><a href="/transaction/GoodsList/?GoodsTypeId={{ eve.id }}&page_index=1">{{ eve.type }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-10">
+        	<div class="display">
+	        	<ul>
+                    {% for eve in page %}
+	            	<li>
+	            		<div class="goods">
+	            			<div class="goodsdetail">
+                                <div class="goodsname">
+                                    <h3>{{ eve.GoodsName }}</h3>
+                                </div>
+                                <div class="price">
+                                    <p>购买时价格：{{ eve.BuyPrice }}</p>
+                                    <p>现出售价格：{{eve.SellPrice}}</p>
+                                </div>
+                                <div class="contact">
+                                    <p>联系方式:{{ eve.ContactMethod }}</p>
+                                    <p>上架时间：{{ eve.CreateTime }}</p>
+                                </div>
+                            </div>
+                            <div class="goodsimage">
+                                {% ifnotequal eve.FirstImageName '无' %}
+                                    <div class="firstimage"><img src="{% static 'image/goods/'|add:eve.FirstImageName %}" alt="图片暂无"></div>
+                                {% endifnotequal %}
+                                {% ifnotequal eve.SecondImageName '无' %}
+                                    <div class="secondimage"><img src="{% static 'image/goods/'|add:eve.SecondImageName %}" alt="图片暂无"></div>
+                                {% endifnotequal %}
+                                {% ifnotequal eve.ThirdImageName '无' %}
+                                    <div class="thirdimage"><img src="{% static 'image/goods/'|add:eve.ThirdImageName %}" alt="图片暂无"></div>
+                                {% endifnotequal %}
+                            </div>
+	            		</div>
+	            	</li>
+                    {% empty %}
+                        <li>
+	            		<div class="article">
+	            			<div class="title"><a href=""><h3>暂无物品</h3></a></div>
+	            		</div>
+	            	</li>
+                    {% endfor %}
+	            </ul>
+        	</div>
+            <div id="PageSlice">
+                {% if page.has_previous %}
+                    <div id="PreviousPage"><h5><a href="/transaction/GoodsList/?GoodsTypeId={{ GoodsTypeId }}&page_index={{ page_index|add:-1 }}">上一页</a></h5></div>
+                {% endif %}
+                {% if TitleObj %}
+                    <div id="PageCount"><h5>第{{page_index}}页，共{{ paginator.num_pages }}页</h5></div>
+                {% else %}
+                    <div id="PageCount"><h5>暂无页数</h5></div>
+                {% endif %}
+                {% if page.has_next %}
+                    <div id="NextPage"><h5><a href="/transaction/GoodsList/?ArticleTypeId={{ GoodsTypeId }}&page_index={{ page_index|add:1 }}">下一页</a></h5></div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3D相册</title>
+    <style>
+        body{
+            background-color: black;
+        }
+        #main{
+            position: relative;
+            perspective: 800px;
+            perspective-origin:50% -134%;
+        }
+        #container{
+            position: relative;
+            margin: 150px auto;
+            width: 100px;
+            height: 200px;
+            transform-style: preserve-3d;
+        }
+        img{
+            position: absolute;
+            width: 100px;
+            height: 200px;
+             -webkit-box-reflect: below 10px -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(250, 250, 250, 0.3)));
+        }
+    </style>
+</head>
+<body>
+<div id="main">
+    <div id="container">
+        {% load static %}
+        <img src="{% static 'image/travel/baijiang1.jpeg' %}" alt="无法加载">
+        <img src="{% static 'image/travel/baijiang2.jpeg' %}" alt="无法加载">
+        <img src="{% static 'image/travel/huashan1.jpeg' %}" alt="无法加载">
+        <img src="{% static 'image/travel/huashan2.jpeg' %}" alt="无法加载">
+        <img src="{% static 'image/travel/liancheng1.jpeg' %}" alt="无法加载">
+        <img src="{% static 'image/travel/liancheng2.jpeg' %}" alt="无法加载">
+        <img src="{% static 'image/travel/liping1.jpeg' %}" alt="无法加载">
+        <img src="{% static 'image/travel/liping2.jpeg' %}" alt="无法加载">
+        <img src="{% static 'image/travel/qianfo1.jpeg' %}" alt="无法加载">
+        <img src="{% static 'image/travel/qianfo2.jpeg' %}" alt="无法加载">
+        <img src="{% static 'image/travel/shidi1.jpeg' %}" alt="无法加载">
+        <img src="{% static 'image/travel/shidi2.jpeg' %}" alt="无法加载">
+        <img src="{% static 'image/travel/zhuge1.jpeg' %}" alt="无法加载">
+        <img src="{% static 'image/travel/zhuge2.jpeg' %}" alt="无法加载">
+    </div>
+</div>
+<div style="color: red"><h3>该模块暂未完善，移动端可能无法正常操作</h3></div>
+</body>
+    <script>
+        window.onload=function () {
+            var oimg=document.getElementsByTagName('img');
+            for(var i=0;i<oimg.length;i++)
+            {
+                var nChangeDeg=360/oimg.length;
+                oimg[i].style.transform='rotateY('+nChangeDeg*i+'deg) translate3d(0,'+0+'px,350px)';
+                oimg[i].style.transition='transform 4s cubic-bezier(0.22, 0.61, 0.36, 1) '+(oimg.length-i)*0.4+'s';
+            }
+        };
+        var ocontainer=document.getElementById('container');
+        var initlength=0;
+        window.onmousedown=function (event) {
+            var nnewX=event.clientX;
+            var nlength;
+            window.onmousemove=function (event) {
+                var nlastX=event.clientX;
+                var lengthchange=nlastX-nnewX;
+                nlength=initlength+lengthchange*0.1;
+                ocontainer.style.transform='rotateY('+nlength+'deg)';
+            };
+            window.onmouseup=function () {
+                initlength=nlength;
+                window.onmousemove=null;
+            }
+        };
+        window.ontouchstart=function (event) {
+            var nnewX=event.clientX;
+            var nlength;
+            window.ontouchmove=function (event) {
+                var nlastX=event.clientX;
+                var lengthchange=nlastX-nnewX;
+                nlength=initlength+lengthchange*0.1;
+                ocontainer.style.transform='rotateY('+nlength+'deg)';
+            };
+            window.ontouchend=function () {
+                initlength=nlength;
+                window.onmousemove=null;
+            }
+        };
+    </script>
+</html>
